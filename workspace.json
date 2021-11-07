@@ -1,4 +1,115 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "safe-tap": {
+      "root": "libs/safe-tap",
+      "sourceRoot": "libs/safe-tap/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "options": {
+            "lintFilePatterns": [
+              "libs/safe-tap/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/safe-tap"
+          ],
+          "options": {
+            "jestConfig": "libs/safe-tap/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "safe-tap-test": {
+      "projectType": "application",
+      "root": "apps/safe-tap-test/",
+      "sourceRoot": "apps/safe-tap-test/src",
+      "prefix": "",
+      "targets": {
+        "build": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "noHmr": true,
+            "production": true,
+            "uglify": true,
+            "release": true,
+            "forDevice": true
+          },
+          "configurations": {
+            "prod": {
+              "fileReplacements": [
+                {
+                  "replace": "./src/environments/environment.ts",
+                  "with": "./src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "ios": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "ios"
+          },
+          "configurations": {
+            "build": {
+              "copyTo": "./dist/build.ipa"
+            },
+            "prod": {
+              "combineWithConfig": "build:prod"
+            }
+          }
+        },
+        "android": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "android"
+          },
+          "configurations": {
+            "build": {
+              "copyTo": "./dist/build.apk"
+            },
+            "prod": {
+              "combineWithConfig": "build:prod"
+            }
+          }
+        },
+        "clean": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "clean": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/safe-tap-test/**/*.ts",
+              "apps/safe-tap-test/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/safe-tap-test/jest.config.js",
+            "tsConfig": "apps/safe-tap-test/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/safe-tap-test/src/test-setup.ts"
+          }
+        }
+      },
+      "tags": []
+    }
+  }
 }

@@ -1,0 +1,14 @@
+<ActionBar title="My App" class="action-bar" flat="true"> </ActionBar>
+<StackLayout class="p-20">
+  <Label text="Enjoy" class="h1 text-center c-white"></Label>
+  <Image
+    src="~/assets/images/nx-nativescript.png"
+    class="h-center m-t-20"
+    width="300"
+  ></Image>
+  <ScrollView>
+    <StackLayout>
+      <Label *ngFor="let _ of _iterator; let i = index" text="Tap me!" class="h1 m-y-16" [safeTap]="touch$$" [eventExtras]="{i}"></Label>
+    </StackLayout>
+  </ScrollView>
+</StackLayout>

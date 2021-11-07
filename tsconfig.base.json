@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nativescript-safe-tap/nativescript-safe-tap": [
+        "libs/safe-tap/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
